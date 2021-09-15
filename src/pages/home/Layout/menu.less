@@ -1,0 +1,134 @@
+.menuLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  padding: 0 24px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  .logo {
+    color: black;
+    font-size: 180px;
+  }
+}
+
+.menuBody {
+  :global {
+    height: auto;
+
+    .ant-layout-header {
+      line-height: unset;
+    }
+
+    .ant-layout {
+      background: #f1f5f8;
+    }
+
+    .ant-pro-sider-menu-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 120px;
+    }
+
+    .ant-menu-root {
+      padding: 0 !important;
+    }
+
+    .ant-menu-item {
+      height: 48px !important;
+      margin-top: 0 !important;
+      padding-left: 50px !important;
+      overflow: unset !important;
+      line-height: 48px !important;
+    }
+
+    .ant-menu-item .anticon,
+    .qIcon {
+      min-width: 17px;
+      font-size: 16px;
+    }
+
+    .ant-menu-item a {
+      color: #909090;
+      font-family: Helvetica Neue, PingFang SC, Microsoft YaHei, serif;
+      letter-spacing: 1.2px;
+    }
+
+    .ant-menu-item-selected a {
+      color: #3d3d3d;
+      font-weight: 600;
+    }
+
+    .ant-menu-item .iconfont {
+      margin-right: 10px;
+    }
+
+    .ant-menu-item:active {
+      background: #f1f5f8 !important;
+    }
+
+    .ant-menu-item:hover {
+      font-weight: 700;
+    }
+
+    .ant-menu-item::after {
+      border-right: 0 !important;
+    }
+
+    .ant-menu-item-selected {
+      color: black;
+      font-weight: 700;
+      background: #f1f5f8 !important;
+    }
+
+    .ant-menu-inline .ant-menu-item:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    .ant-menu-item-selected > a {
+      color: #3d3d3d !important;
+    }
+
+    .ant-pro-basicLayout-content {
+      margin: 15px;
+    }
+  }
+}
+.menuFooter {
+  position: absolute;
+  bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .host {
+    display: inline-block;
+    color: #909090;
+    font-size: 12px;
+    transform: scale(0.9);
+  }
+  .copyright {
+    display: inline-block;
+    color: #909090;
+    font-size: 12px;
+    transform: scale(0.7);
+  }
+  .thanks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    color: #909090;
+    font-size: 12px;
+    transform: scale(0.9);
+    img {
+      width: 70px;
+      height: 30px;
+    }
+  }
+}

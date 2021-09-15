@@ -1,0 +1,102 @@
+.headerFix {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  .userIcon {
+    font-size: 20px;
+  }
+  .userLoginIcon {
+    color: #fcd133;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .userIcon:hover {
+    color: #fcd133;
+    cursor: pointer;
+  }
+}
+.leftMenuTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 130px;
+  height: 28px;
+  font-size: 30px;
+  .icon {
+    margin-right: 15px;
+    color: #3d3d3d;
+    font-size: 20px;
+  }
+  .title {
+    color: #3d3d3d;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 1.5px;
+  }
+}
+.headerLoginTitle {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.loginButton {
+  width: 100%;
+  color: #3d3d3d;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: #fcd133;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  &:hover {
+    color: #3d3d3d !important;
+    background: #ffe06c;
+    border-color: #fcd133 !important;
+  }
+  &:active {
+    color: #3d3d3d !important;
+    background: #fcd133 !important;
+    border-color: #fcd133 !important;
+  }
+  &:focus {
+    color: #3d3d3d !important;
+    background: #fcd133 !important;
+    border-color: #fcd133 !important;
+  }
+}
+
+.remember {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -10px;
+  font-size: 10px;
+}
+.rememberCheck {
+  font-size: 10px !important;
+}
+.rememberForgot {
+  float: right;
+  font-size: 10px;
+}
+.divider {
+  margin-top: 0 !important;
+  font-size: 10px !important;
+}
+.otherLoginType {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.otherLoginType span {
+  margin: 0 10px;
+  cursor: pointer;
+}
