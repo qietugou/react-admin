@@ -9,3 +9,18 @@ export async function getBookMarkByLevel(level: number, pid: number) {
     },
   });
 }
+
+
+export async function saveBookMarkById(id: number,  remark: string, file: any) {
+  const formData = new FormData();
+  formData.append('remark', remark);
+  if (file) {
+    formData.append("has_file", "1")
+    formData.append('file', file);
+  }
+  return request<API.Response>(`bookmark/${id}`, {
+    method: 'PUT',
+    processData: false,
+    data: formData,
+  });
+}

@@ -40,7 +40,7 @@ export const HomeRoutes = {
     {
       path: '/q/bookmark',
       name: '书签',
-      component: './404',
+      component: './home/bookmark',
       icon: 'shuqian',
       require: true,
     },

@@ -1,17 +1,21 @@
 import ProCard from '@ant-design/pro-card';
 import Content from '../content';
-import React  from 'react';
+import React, { useState } from 'react';
 import { Card, Avatar, Typography, Tooltip } from 'antd';
 import styles from './style.less';
 import { getBookMarkByLevel } from "@/services/bookmark/api";
 import { useRequest, history } from "umi";
 import { EditOutlined, EllipsisOutlined } from '@ant-design/icons';
+import UpdateForm from "./UpdateForm";
 
 const CardList: React.FC = () => {
 
-  const {data, loading} = useRequest<API.BookmarkLevelList>(() => {
+  const {data, run, loading} = useRequest<API.BookmarkLevelList>(() => {
     return getBookMarkByLevel(2, 1)
   })
+
+  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
+  const [currentRow, setCurrentRow] = useState<API.MenuListItem>({});
 
   const pushBookmarkDetail = (id: number, name: string) => {
     history.push({
@@ -31,13 +35,17 @@ const CardList: React.FC = () => {
           {list.map((item, key) => {
             return <ProCard
               key={`${item.id}-${key}`}
+              size="small"
               hoverable
               bordered
               colSpan={6}
               loading={loading}
               className={styles.card}
               actions={[
-                <Tooltip key="edit" title="编辑"><EditOutlined  /></Tooltip>,
+                <Tooltip key="edit" title="编辑"><EditOutlined onClick={ () => {
+                   setCurrentRow(item)
+                    handleUpdateModalVisible(true)
+                }} /></Tooltip>,
                 <Tooltip key="ellipsis" title="查看列表"><EllipsisOutlined onClick={() => {
                   pushBookmarkDetail(item.id || 0, item.name || '')
                 }} /></Tooltip>,
@@ -60,6 +68,14 @@ const CardList: React.FC = () => {
             </ProCard>
           })}
         </ProCard>
+        <UpdateForm
+          columns={currentRow}
+          updateModalVisible={updateModalVisible}
+          handleUpdateModalVisible={handleUpdateModalVisible}
+          onUpdateSubmit={() => {
+            run().then()
+          }}
+        />
       </Content>
     </React.Fragment>
   );

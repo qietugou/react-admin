@@ -40,12 +40,13 @@
     .ant-menu-item {
       height: 48px !important;
       margin-top: 0 !important;
+      margin-bottom: 0 !important;
       padding-left: 50px !important;
       overflow: unset !important;
       line-height: 48px !important;
     }
 
-    .ant-menu-item .anticon,
+
     .qIcon {
       min-width: 17px;
       font-size: 16px;
@@ -72,6 +73,10 @@
 
     .ant-menu-item:hover {
       font-weight: 700;
+      color: #00a4ec!important;
+      a {
+        color: #00a4ec!important;
+      }
     }
 
     .ant-menu-item::after {
@@ -131,4 +136,77 @@
       height: 30px;
     }
   }
+}
+
+.itemSubsHide {
+  display:none;
+}
+
+.itemSubs {
+  position: absolute;
+  margin-left: -76px;
+  width: 100%;
+  overflow: scroll;
+  max-height: 410px;
+  z-index: 1;
+  .itemSubsWrapper {
+    position: relative;
+    margin-left: 56px;
+  }
+  .bonus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: #fcd133;
+    border-radius: 2px;
+    transition: top .3s ease-out;
+  }
+  .positioner {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 4px;
+    height: calc(100% - 10px * 2);
+    background: #f1f5f8;
+    border-radius: 2px;
+    opacity: 1;
+    transition: opacity .3s ease-out;
+  }
+  .subItem {
+    display:flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding-left: 20px;
+    color: #909090;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    transition: color .3s ease-out;
+    &:hover {
+      color: #fcd133;
+    }
+  }
+  .active  {
+    color: black;
+    font-weight: 700;
+  }
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  margin-right: 3px;
+}
+::-webkit-scrollbar-thumb {
+  width: 4px;
+  background-color: #e4e4e4;
+  border-radius: 2px;
 }
