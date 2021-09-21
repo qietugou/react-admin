@@ -10,11 +10,12 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
   return (
+
     <Layout className={`${styles.homeLayout}`}>
       <Sider theme="light" className={`${styles.homeLayoutSider}`}>
         <IndexMenu route={props.location.pathname} routes={props.route.children} />
       </Sider>
-      <Layout className="site-layout">
+      <Layout className={styles.homeSiteLayout}>
         <Header className={styles.header}>
           <IndexHeader
             route={props.route.children.find(
@@ -23,14 +24,7 @@ const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
             login={props.location?.query?.q === 'login'}
           />
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
+        <Content className={styles.content}>
           {props.children}
         </Content>
         <Footer>1111111111</Footer>

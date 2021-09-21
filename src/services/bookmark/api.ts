@@ -10,6 +10,11 @@ export async function getBookMarkByLevel(level: number, pid: number) {
   });
 }
 
+export async function getBookMarkList() {
+  return request<API.BookmarkIndexList>('bookmark/list', {
+    method: 'GET',
+  });
+}
 
 export async function saveBookMarkById(id: number,  remark: string, file: any) {
   const formData = new FormData();

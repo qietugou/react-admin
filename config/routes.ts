@@ -16,9 +16,9 @@ export const HomeRoutes = {
       require: true,
     },
     {
-      path: '/q/note',
+      path: '/q/article',
       name: '随记',
-      component: './TableList',
+      component:  './home/article',
       icon: 'note',
       require: true,
     },

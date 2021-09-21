@@ -4,12 +4,15 @@ import { CopyrightOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
 import styles from './menu.less';
 import type { MenuDataItem } from '@ant-design/pro-layout';
+import { useModel } from "@@/plugin-model/useModel";
 
 export type MenuProps = {
   routes: MenuDataItem[];
   route: string;
 };
 const IndexMenu: React.FC<MenuProps> = ( props ) => {
+  const { globalState } = useModel('index.global');
+  console.log(22222222)
   const createIconMenuNode = ( type: string ): React.ReactNode => (
     <React.Fragment>
       <i className={ `iconfont qietugou-${ type }` }/>
@@ -17,7 +20,7 @@ const IndexMenu: React.FC<MenuProps> = ( props ) => {
   );
 
   const renderChildScroll = (
-    types: string[],
+    types: API.BookmarkTag[],
     selectIndex: number,
   ) => (
     <div className={ styles.itemSubsWrapper }>
@@ -27,9 +30,8 @@ const IndexMenu: React.FC<MenuProps> = ( props ) => {
       { types.map(( item, index ) => (
         <div
           className={ `${ styles.subItem } ${ selectIndex === index ? styles.active : '' }` }
-          key={ item }
-        >
-          { item }
+          key={ item.pid}
+        >{ item.name }
         </div>
       )) }
     </div>
@@ -60,7 +62,7 @@ const IndexMenu: React.FC<MenuProps> = ( props ) => {
               </Link>
               { props.route === "/q/bookmark" && route.path === "/q/bookmark" ?
                 <div className={`${styles.itemSubs}`}>
-                  { renderChildScroll([ "必看0", "JavaScript", "EastSearch", "React Native", "必看31", "必看244",  "React Native", "必看31", "必看244",   "React Native", "必看31", "必看244"], 0) }
+                  { renderChildScroll(globalState.tagList, globalState.selectTagIndex) }
                 </div>
                 : "" }
             </Menu.Item>

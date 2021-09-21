@@ -1,5 +1,8 @@
 @import '~antd/lib/style/themes/default.less';
 
+body {
+  background: #f1f5f8!important;
+}
 .homeLayout {
   min-height: 100vh !important;
   .homeLayoutSider {
@@ -7,15 +10,23 @@
     width: 224px !important;
     min-width: 224px !important;
     max-width: 224px !important;
+    position: fixed;
+    overflow: auto;
+    height: 100vh;
+    left: 0;
+  }
+  .homeSiteLayout {
+    margin-left: 224px;
   }
 }
 
 .header {
-  position: relative;
-  width: 100%;
+  position: fixed;
+  width: calc(100% - 224px);
   height: 72px;
   background-color: rgba(237, 240, 245) !important;
   border-bottom: 1px solid #d9e3ea;
+  z-index: 1;
 
   .logo {
     color: black;
@@ -26,4 +37,10 @@
     padding: 24px 44px 0;
     background-color: red;
   }
+}
+
+.content {
+  margin-top: 86px;
+  margin-left: 20px;
+  margin-right: 20px;
 }

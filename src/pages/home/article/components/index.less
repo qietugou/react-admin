@@ -1,0 +1,65 @@
+.headerTitle {
+  margin-bottom: 20px;
+  .tagBody {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .label {
+    span {
+      display: inline-block;
+      width: 80px;
+      height: 32px;
+      color: #909090;
+      font-family: Helvetica Neue, PingFang SC, Microsoft YaHei, serif;
+      line-height: 32px;
+      letter-spacing: 1.2px;
+    }
+    span::after {
+      content: '\FF1A';
+    }
+  }
+  :global {
+    .ant-tag-checkable-checked {
+      background-color: #fcd133;
+    }
+  }
+}
+.bodyContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+  :global {
+    .ant-card-body {
+      width: 100%;
+      padding: 24px 24px 0 24px;
+    }
+    .ant-card-body:hover {
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
+  .title {
+    padding: 2px;
+    color: black;
+  }
+  .title:hover {
+    box-shadow: 0 0 6px #999;
+    transform: translateY(-3px);
+    transition: all 0.5s ease-out;
+  }
+  img {
+    width: 160px;
+    height: 80%;
+    margin-top: 5%;
+    border-radius: 0;
+  }
+  .tag {
+    color: #909090;
+    background-color: #f1f5f8;
+  }
+}
