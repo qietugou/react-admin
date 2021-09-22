@@ -1,19 +1,19 @@
 @import '~antd/lib/style/themes/default.less';
 
 body {
-  background: #f1f5f8!important;
+  background: #f1f5f8 !important;
 }
 .homeLayout {
   min-height: 100vh !important;
   .homeLayoutSider {
+    position: fixed;
+    left: 0;
     flex: 0 0 224px !important;
     width: 224px !important;
     min-width: 224px !important;
     max-width: 224px !important;
-    position: fixed;
-    overflow: auto;
     height: 100vh;
-    left: 0;
+    overflow: auto;
   }
   .homeSiteLayout {
     margin-left: 224px;
@@ -21,12 +21,11 @@ body {
 }
 
 .header {
-  position: fixed;
-  width: calc(100% - 224px);
+  //position: fixed;
   height: 72px;
   background-color: rgba(237, 240, 245) !important;
   border-bottom: 1px solid #d9e3ea;
-  z-index: 1;
+  //z-index: 1;
 
   .logo {
     color: black;
@@ -40,7 +39,7 @@ body {
 }
 
 .content {
-  margin-top: 86px;
-  margin-left: 20px;
+  margin-top: 14px;
   margin-right: 20px;
+  margin-left: 20px;
 }

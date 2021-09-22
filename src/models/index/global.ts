@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 type IndexGlobalState = {
-  tagList: API.BookmarkTag[],
-  selectTagIndex: number
-}
+  /**
+   * 标签 tag
+   */
+  tagList: API.BookmarkTag[];
+  /**
+   * 选中的 tag
+   */
+  selectTagIndex: number;
+  /**
+   * 选中的 tagId
+   */
+  selectTagId: number | null;
+};
 const initGlobalState: IndexGlobalState = {
   tagList: [],
-  selectTagIndex: 0
-}
+  selectTagIndex: 0,
+  selectTagId: null,
+};
 
 /**
  * 公共的变量
@@ -24,10 +35,14 @@ export default () => {
    */
   const handleTagItem = (data: API.BookmarkTag[]) => {
     setGlobalState((s) => ({ ...s, tagList: data }));
-  }
+  };
+  const handleSelectTagId = (id: number) => {
+    setGlobalState((s) => ({ ...s, selectTagId: id }));
+  };
 
   return {
     globalState,
-    handleTagItem
+    handleTagItem,
+    handleSelectTagId,
   };
 };

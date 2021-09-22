@@ -1,5 +1,4 @@
 declare namespace API {
-
   type Bookmark = ResponseDate & {
     id?: number;
     name?: string;
@@ -14,24 +13,24 @@ declare namespace API {
 
   type BookmarkLevelList = Response & {
     data?: Bookmark[];
-  }
+  };
 
   type BookmarkItem = {
     name?: string;
-    pid?: number;
+    id?: number;
     icon?: string;
-    children?: Bookmark[]
-  }
+    children?: Bookmark[];
+  };
 
   type BookmarkTag = {
     name?: string;
-    pid?: number;
-  }
+    id?: number;
+  };
 
   type BookmarkIndexList = Response & {
-     data: {
-       list?: BookmarkItem[]
-       tags?: BookmarkTag[]
-     }
-  }
+    data: {
+      list?: BookmarkItem[];
+      tags?: BookmarkTag[];
+    };
+  };
 }

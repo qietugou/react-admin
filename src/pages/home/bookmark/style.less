@@ -1,42 +1,43 @@
 .container {
   padding: 0 60px;
-  .title {
-    height: 28px;
-    font-size: 20px;
-    color: #777;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 12px;
-
-    .titleIcon {
-      margin-right: 10px;
-      width: 30px;
+  :global {
+    .book-mark-tag-title {
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
       -webkit-align-items: center;
-      -ms-flex-align: center;
       align-items: center;
+      height: 28px;
+      margin: 12px;
+      color: #777;
+      font-size: 20px;
+      -ms-flex-align: center;
+    }
+
+    .titleIcon {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      width: 30px;
+      margin-right: 10px;
+      -ms-flex-pack: center;
+      -ms-flex-align: center;
     }
 
     .titleText {
       height: 100%;
-      letter-spacing: 1.2px;
+      color: inherit;
       font-weight: 400;
       font-size: inherit;
-      color: inherit;
+      letter-spacing: 1.2px;
     }
   }
 
   .card {
-    min-width: 260px;
     margin: 12px 12px 12px 12px;
     border-radius: 10px;
 
@@ -44,53 +45,60 @@
       .ant-card-body {
         padding: 20px;
       }
+
       .ant-card-meta {
         display: flex;
         align-items: center;
       }
+
       .ant-card-meta-detail {
         width: 100%;
       }
     }
+
     .cardTitle {
-      width: 100%;
-      font-size: 14px;
-      font-weight: 500;
-      color: #3d3d3d;
-      letter-spacing: .2px;
-      white-space: nowrap;
-      overflow: hidden;
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
-      transition: color .3s ease-out;
-    }
-    .cardDesc {
-      margin-top: 3px;
       width: 100%;
-      font-size: 12px;
-      color: #909090;
-      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
-      transition: color .3s ease-out;
-      height: 30px;
+      color: #3d3d3d;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      transition: color 0.3s ease-out;
     }
+
+    .cardDesc {
+      width: 100%;
+      height: 32px;
+      margin-top: 3px;
+      overflow: hidden;
+      color: #909090;
+      font-size: 12px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      transition: color 0.3s ease-out;
+    }
+
     .countSymbol {
-      padding-right: 6px;
-      height: 16px;
-      color: #d8d8d8;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      transition: color .3s ease-out;
+      height: 16px;
+      padding-right: 6px;
+      color: #d8d8d8;
+      cursor: pointer;
+      transition: color 0.3s ease-out;
+
       .countNum {
-        font-size: 12px;
         margin-left: 6px;
-        color: #c8c8c8
+        color: #c8c8c8;
+        font-size: 12px;
       }
     }
+
     .icon {
       width: 30px;
       height: 30px;
@@ -100,6 +108,4 @@
   .card:hover {
     box-shadow: 0 16px 24px 0 #d6e0e8;
   }
-
 }
-
