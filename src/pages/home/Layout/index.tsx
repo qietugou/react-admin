@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import IndexMenu from './IndexMenu';
 import IndexHeader from './IndexHeader';
 import styles from './index.less';
@@ -10,7 +10,6 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
   return (
-
     <Layout className={`${styles.homeLayout}`}>
       <Sider theme="light" className={`${styles.homeLayoutSider}`}>
         <IndexMenu route={props.location.pathname} routes={props.route.children} />
@@ -24,10 +23,12 @@ const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
             login={props.location?.query?.q === 'login'}
           />
         </Header>
-        <Content className={styles.content}>
-          {props.children}
-        </Content>
-        <Footer>1111111111</Footer>
+        <Content className={styles.content}>{props.children}</Content>
+        <Footer>
+          <BackTop className={styles.backTop}>
+            <i className={`iconfont qietugou-fanhuidingbu ${styles.backup}`} />
+          </BackTop>
+        </Footer>
       </Layout>
     </Layout>
   );

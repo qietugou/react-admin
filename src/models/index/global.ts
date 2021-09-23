@@ -36,8 +36,8 @@ export default () => {
   const handleTagItem = (data: API.BookmarkTag[]) => {
     setGlobalState((s) => ({ ...s, tagList: data }));
   };
-  const handleSelectTagId = (id: number) => {
-    setGlobalState((s) => ({ ...s, selectTagId: id }));
+  const handleSelectTagId = (id: number, index: number) => {
+    setGlobalState((s) => ({ ...s, selectTagId: id, selectTagIndex: index }));
   };
 
   return {

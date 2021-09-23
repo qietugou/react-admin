@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getBookMarkList } from '@/services/bookmark/api';
 import styles from './style.less';
 import { Avatar, Card, Col, Row, Skeleton, Tooltip } from 'antd';
-import useSmoothScroll from 'react-smooth-scroll-hook';
+import { animateScroll as scroll } from 'react-scroll';
 import { EyeFilled } from '@ant-design/icons';
 import { useRequest, useModel } from 'umi';
 
@@ -20,7 +20,8 @@ const Index: React.FC = () => {
     return getBookMarkList();
   });
 
-  const ref = useRef<HTMLElement>(document.documentElement);
+  // 滚动边距
+  const marginHeight = 24;
 
   useEffect(() => {
     if (!loading) {
@@ -40,22 +41,17 @@ const Index: React.FC = () => {
     setElementItem(eData);
   }, [loading]);
 
-  const { scrollTo } = useSmoothScroll({
-    ref,
-    speed: 100,
-    direction: 'y',
-  });
-
   useEffect(() => {
     const topItem = elementItem.find((item) => {
-      console.log(item.id === globalState.selectTagId, item.id, globalState.selectTagId);
       return item.id === globalState.selectTagId;
     });
-    console.log(topItem);
     if (topItem) {
-      scrollTo(Number(topItem.top - 10));
+      const top = globalState.selectTagIndex === 0 ? 0 : topItem.top - marginHeight;
+      setTimeout(() => {
+        scroll.scrollTo(top);
+      });
     }
-  }, [globalState.selectTagId]);
+  }, [globalState.selectTagId, globalState.selectTagIndex]);
 
   const list = data?.list || [{ children: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}] }];
   return (
@@ -82,7 +78,12 @@ const Index: React.FC = () => {
                             <Card className={styles.card} hoverable={true}>
                               <Card.Meta
                                 avatar={<Avatar className={styles.icon} src={child.icon} />}
-                                title={<div className={styles.cardTitle}> {child.name}</div>}
+                                title={
+                                  <a href={child.url} target="_blank">
+                                    {' '}
+                                    <div className={styles.cardTitle}> {child.name}</div>
+                                  </a>
+                                }
                                 description={
                                   <div className={styles.cardDesc}>
                                     <Tooltip placement="topLeft" title={child.remark || child.name}>

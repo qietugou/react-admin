@@ -1,5 +1,4 @@
 .container {
-  padding: 0 60px;
   :global {
     .book-mark-tag-title {
       display: -webkit-flex;
@@ -13,28 +12,32 @@
       font-size: 20px;
       -ms-flex-align: center;
     }
+  }
 
-    .titleIcon {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-align-items: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      width: 30px;
-      margin-right: 10px;
-      -ms-flex-pack: center;
-      -ms-flex-align: center;
-    }
+  .titleIcon {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 30px;
+    margin-right: 10px;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+  }
 
-    .titleText {
-      height: 100%;
-      color: inherit;
-      font-weight: 400;
-      font-size: inherit;
-      letter-spacing: 1.2px;
-    }
+  .titleText {
+    height: 100%;
+    overflow: hidden;
+    color: inherit;
+    font-weight: 400;
+    font-size: inherit;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease-out;
   }
 
   .card {
@@ -57,16 +60,14 @@
     }
 
     .cardTitle {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      width: 100%;
       overflow: hidden;
       color: #3d3d3d;
       font-weight: 500;
       font-size: 14px;
       letter-spacing: 0.2px;
       white-space: nowrap;
+      text-overflow: ellipsis;
+      word-break: keep-all; /* 不换行 */
       transition: color 0.3s ease-out;
     }
 

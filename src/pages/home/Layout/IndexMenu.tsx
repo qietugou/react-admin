@@ -23,15 +23,15 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
     </React.Fragment>
   );
 
-  const debounce = _.debounce((index: number, id: number) => {
+  const throttle = _.throttle((index: number, id: number) => {
     setSelectTagIndex(index);
-    handleSelectTagId(id);
-  }, 100);
+    handleSelectTagId(id, index);
+  }, 200);
 
   const changeTagItem = (e: React.MouseEvent<HTMLDivElement>, index: number, id: number) => {
-    //阻止冒泡
+    // 阻止冒泡
     e.stopPropagation();
-    debounce(index, id);
+    throttle(index, id);
   };
 
   const renderChildScroll = (types: API.BookmarkTag[], selectIndex: number) => (
