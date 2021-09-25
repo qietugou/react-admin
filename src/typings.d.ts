@@ -34,4 +34,9 @@ declare namespace API {
     created_at?: string;
     updated_at?: string;
   };
+
+  type PageParams = {
+    current?: number;
+    pageSize?: number;
+  };
 }

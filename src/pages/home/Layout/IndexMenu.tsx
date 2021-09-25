@@ -18,9 +18,7 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
   const [selectTagIndex, setSelectTagIndex] = useState<number>(globalState.selectTagIndex);
 
   const createIconMenuNode = (type: string): React.ReactNode => (
-    <React.Fragment>
-      <i className={`iconfont qietugou-${type}`} />
-    </React.Fragment>
+    <React.Fragment>{type}</React.Fragment>
   );
 
   const throttle = _.throttle((index: number, id: number) => {

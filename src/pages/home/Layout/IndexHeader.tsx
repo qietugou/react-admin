@@ -95,7 +95,7 @@ const IndexHeader: React.FC<IndexHeaderProps> = (props) => {
     <React.Fragment>
       <div className={styles.headerFix}>
         <div className={styles.leftMenuTitle}>
-          <i className={`iconfont qietugou-${props.route?.icon} ${styles.icon}`} />
+          <span className={styles.icon}>{props.route?.icon}</span>
           <div className={`${styles.title}`}>{props.route?.name}</div>
         </div>
         <UserOutlined

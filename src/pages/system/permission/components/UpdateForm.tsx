@@ -1,22 +1,22 @@
-import ProForm, {ModalForm, ProFormText, ProFormDigit, ProFormSelect} from "@ant-design/pro-form";
-import React, {useRef, useEffect} from "react";
-import type {FormInstance} from "antd";
-import {Form, TreeSelect} from "antd";
+import ProForm, { ModalForm, ProFormText, ProFormDigit, ProFormSelect } from '@ant-design/pro-form';
+import React, { useRef, useEffect } from 'react';
+import type { FormInstance } from 'antd';
+import { Form, TreeSelect } from 'antd';
 
 export type UpdateFormProps = {
   updateModalVisible: boolean;
-  columns: API.PermissionItem,
-  handleUpdateModalVisible?: (visible: boolean) => void,
-  onUpdateSubmit: (values: API.PermissionItem) => Promise<void>,
-  treeMenuData: any,
-  defaultExpanded: number[]
+  columns: API.PermissionItem;
+  handleUpdateModalVisible?: (visible: boolean) => void;
+  onUpdateSubmit: (values: API.PermissionItem) => Promise<void>;
+  treeMenuData: any;
+  defaultExpanded: number[];
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const formRef = useRef<FormInstance>();
 
   useEffect(() => {
-    formRef.current?.setFieldsValue({...props.columns})
+    formRef.current?.setFieldsValue({ ...props.columns });
   }, [props.columns]); // 仅在 count 更改时更新
 
   return (
@@ -87,8 +87,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             { label: 'DELETE', value: 'DELETE' },
             { label: 'PATCH', value: 'PATCH' },
           ]}
-        >
-        </ProFormSelect>
+        />
       </ProForm.Group>
       <ProForm.Group>
         <Form.Item
@@ -103,9 +102,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           ]}
         >
           <TreeSelect
-            style={{width: '328px'}}
+            style={{ width: '328px' }}
             treeDataSimpleMode
-            dropdownStyle={{overflow: 'auto'}}
+            dropdownStyle={{ overflow: 'auto' }}
             placeholder="请选择关联模块"
             treeDefaultExpandAll
             treeData={props.treeMenuData}
@@ -126,8 +125,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             { label: '只读', value: 0 },
             { label: '读写', value: 1 },
           ]}
-        >
-        </ProFormSelect>
+        />
       </ProForm.Group>
       <ProForm.Group>
         <ProFormDigit
@@ -139,6 +137,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         />
       </ProForm.Group>
     </ModalForm>
-  )
-}
+  );
+};
 export default UpdateForm;

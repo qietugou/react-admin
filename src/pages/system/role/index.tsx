@@ -155,7 +155,7 @@ const TableList: React.FC = () => {
   ];
   return (
     <React.Fragment>
-      <ProTable<API.RuleListItem, API.PageParams>
+      <ProTable<API.RoleListItem, API.PageParams>
         actionRef={actionRef}
         rowKey="id"
         search={false}

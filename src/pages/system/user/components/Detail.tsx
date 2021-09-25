@@ -19,7 +19,7 @@ const Detail: React.FC<DetailProps> = (props) => {
       }}
       closable={true}
     >
-      <ProDescriptions<API.RuleListItem> column={1} title={props.columns?.name} tooltip="账号详情">
+      <ProDescriptions<API.RoleListItem> column={1} title={props.columns?.name} tooltip="账号详情">
         <ProDescriptions.Item label="账户号" valueType="text">
           {props.columns?.name}
         </ProDescriptions.Item>

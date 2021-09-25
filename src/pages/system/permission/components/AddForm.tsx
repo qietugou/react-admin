@@ -1,14 +1,14 @@
-import ProForm, {ModalForm, ProFormText, ProFormDigit, ProFormSelect} from "@ant-design/pro-form";
-import React, {useRef, useEffect} from "react";
-import type {FormInstance} from "antd";
-import {Form, TreeSelect} from "antd";
+import ProForm, { ModalForm, ProFormText, ProFormDigit, ProFormSelect } from '@ant-design/pro-form';
+import React, { useRef, useEffect } from 'react';
+import type { FormInstance } from 'antd';
+import { Form, TreeSelect } from 'antd';
 
 export type AddFormProps = {
   createModalVisible: boolean;
-  handleModalVisible?: (visible: boolean) => void,
-  addSubmit: (values: API.PermissionItem) => Promise<void>,
-  treeMenuData: any,
-  defaultExpanded: number[]
+  handleModalVisible?: (visible: boolean) => void;
+  addSubmit: (values: API.PermissionItem) => Promise<void>;
+  treeMenuData: any;
+  defaultExpanded: number[];
 };
 
 const AddForm: React.FC<AddFormProps> = (props) => {
@@ -86,8 +86,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
             { label: 'DELETE', value: 'DELETE' },
             { label: 'PATCH', value: 'PATCH' },
           ]}
-        >
-        </ProFormSelect>
+        />
       </ProForm.Group>
       <ProForm.Group>
         <Form.Item
@@ -102,9 +101,9 @@ const AddForm: React.FC<AddFormProps> = (props) => {
           ]}
         >
           <TreeSelect
-            style={{width: '328px'}}
+            style={{ width: '328px' }}
             treeDataSimpleMode
-            dropdownStyle={{overflow: 'auto'}}
+            dropdownStyle={{ overflow: 'auto' }}
             placeholder="请选择关联模块"
             treeDefaultExpandAll
             treeData={props.treeMenuData}
@@ -125,8 +124,7 @@ const AddForm: React.FC<AddFormProps> = (props) => {
             { label: '只读', value: 0 },
             { label: '读写', value: 1 },
           ]}
-        >
-        </ProFormSelect>
+        />
       </ProForm.Group>
       <ProForm.Group>
         <ProFormDigit
@@ -138,6 +136,6 @@ const AddForm: React.FC<AddFormProps> = (props) => {
         />
       </ProForm.Group>
     </ModalForm>
-  )
-}
+  );
+};
 export default AddForm;

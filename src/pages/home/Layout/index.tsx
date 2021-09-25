@@ -5,6 +5,7 @@ import IndexHeader from './IndexHeader';
 import styles from './index.less';
 import type { MenuDataItem } from '@ant-design/pro-layout';
 import type { Route } from '@ant-design/pro-layout/es/typings';
+import { RocketOutlined } from '@ant-design/icons';
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -26,7 +27,7 @@ const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
         <Content className={styles.content}>{props.children}</Content>
         <Footer>
           <BackTop className={styles.backTop}>
-            <i className={`iconfont qietugou-fanhuidingbu ${styles.backup}`} />
+            <RocketOutlined className={styles.backup} />
           </BackTop>
         </Footer>
       </Layout>
