@@ -79,3 +79,37 @@ export const renderPermissionTree = (
     treeList.push(tree);
   });
 };
+
+/**
+ * 渲染 Marked Link a 标签
+ * @param href
+ * @param title
+ * @param text
+ */
+export function renderMarkedLink(href: string, title: string, text: string) {
+  let url = href;
+  let target: boolean | string = false;
+
+  if (url.slice(0, 1) !== '#') {
+    const urlParams = new URL(href, window.location.origin);
+
+    url = urlParams.href;
+
+    target = urlParams.host !== window.location.host ? '_blank' : false;
+  }
+
+  if (!url) {
+    return text;
+  }
+
+  let out = `<a href="${url}"`;
+  if (title) {
+    out += ` title="${title}"`;
+  }
+  if (target !== false) {
+    out += ` target="${target}"`;
+  }
+  out += `>${text}</a>`;
+
+  return out;
+}

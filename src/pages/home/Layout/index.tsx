@@ -19,7 +19,9 @@ const Index: React.FC<MenuDataItem & Location & Route> = (props) => {
         <Header className={styles.header}>
           <IndexHeader
             route={props.route.children.find(
-              (r: { path: string }) => r.path === props.location.pathname,
+              (r: { path: string }) =>
+                r.path === props.location.pathname ||
+                props.location.pathname.startsWith(r.path as string),
             )}
             login={props.location?.query?.q === 'login'}
           />

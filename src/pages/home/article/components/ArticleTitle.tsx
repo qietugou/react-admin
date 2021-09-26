@@ -10,7 +10,7 @@ export interface NoteHeaderTitleProps {
 
 const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
 
-const ArticlesTitle: React.FC<NoteHeaderTitleProps> = () => {
+const ArticleTitle: React.FC<NoteHeaderTitleProps> = () => {
   const [selectTags, setSelectTags] = useState<string[]>([]);
 
   const handleChange = (tag: string, checked: boolean) => {
@@ -40,4 +40,4 @@ const ArticlesTitle: React.FC<NoteHeaderTitleProps> = () => {
     </React.Fragment>
   );
 };
-export default ArticlesTitle;
+export default ArticleTitle;

@@ -50,6 +50,14 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
       ))}
     </div>
   );
+
+  const defaultSelectedKeys = (routes: MenuDataItem[], route: string): string[] => {
+    const res = routes.find((r) => {
+      return r.path === route || route.startsWith(r.path as string);
+    });
+    return res ? [res.path as string] : [];
+  };
+
   return (
     <React.Fragment>
       <Link to="/">
@@ -61,7 +69,7 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
         theme="light"
         mode="inline"
         className={styles.menuBody}
-        defaultSelectedKeys={[props.route]}
+        defaultSelectedKeys={defaultSelectedKeys(props.routes, props.route)}
       >
         {props.routes.map((route, key) => {
           if (route.hideInMenu) {

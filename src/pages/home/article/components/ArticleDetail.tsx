@@ -3,40 +3,12 @@ import { Card, Divider } from 'antd';
 import Prism from 'prismjs';
 import marked from 'marked';
 import styles from './../detail.less';
-import { useRequest } from '@@/plugin-request/request';
-
-export function rendererLink(href: string, title: string, text: string) {
-  let url = href;
-  let target: boolean | string = false;
-
-  if (url.slice(0, 1) !== '#') {
-    const urlParams = new URL(href, window.location.origin);
-
-    url = urlParams.href;
-
-    target = urlParams.host !== window.location.host ? '_blank' : false;
-  }
-
-  if (!url) {
-    return text;
-  }
-
-  let out = `<a href="${url}"`;
-  if (title) {
-    out += ` title="${title}"`;
-  }
-  if (target !== false) {
-    out += ` target="${target}"`;
-  }
-  out += `>${text}</a>`;
-
-  return out;
-}
+import { renderMarkedLink } from '@/utils/func';
+import type { Topic } from '@/pages/home/article/detail';
 
 const getDefaultMarkedOptions = () => {
   const renderer = new marked.Renderer();
-  renderer.link = rendererLink;
-
+  renderer.link = renderMarkedLink;
   return {
     renderer,
     headerIds: false,
@@ -55,15 +27,15 @@ const getDefaultMarkedOptions = () => {
   };
 };
 
-const outputMarkDown = (content: string): { __html: string; topicLevel: any } => {
+const outputMarkDown = (content: string): { __html: string; topics: Topic[] } => {
   const { renderer, ...otherOptions } = getDefaultMarkedOptions();
-  const topicLevel: any = [];
+  const topics: Topic[] = [];
   renderer.heading = (text: string, level: number) => {
-    topicLevel.push({
+    topics.push({
       text,
       level,
     });
-    return `<a id="${text}" href="${text}"><h${level}>${text}</h${level}></a>\n`;
+    return `<a id="${text}" href="#${text}"><h${level}>${text}</h${level}></a>\n`;
   };
 
   marked.setOptions({ renderer, ...otherOptions });
@@ -71,32 +43,37 @@ const outputMarkDown = (content: string): { __html: string; topicLevel: any } =>
     /<pre>(\s*)<code class="([\w-]+)">/g,
     '<pre class="$2 line-numbers">$1<code class="$2">',
   );
-
-  return { __html: preContent, topicLevel };
+  return { __html: preContent, topics };
 };
 
-const ArticlesDetail: React.FC = () => {
+type ArticlesDetailProps = {
+  title?: string;
+  markdown?: string;
+  setTopics: (topics: Topic[]) => void;
+};
+
+const ArticleDetail: React.FC<ArticlesDetailProps> = (props) => {
   const codeNode = useRef<HTMLElement>(null);
   const [content, setContent] = useState<{ __html: string }>({ __html: '' });
 
-  const { data } = useRequest<any>('https://www.einsition.com/api/articles/32');
-  console.log(data);
-  const bodyContent: any = {};
   useEffect(() => {
-    const markdownBody: string | undefined = bodyContent?.content?.combine_markdown;
-    if (codeNode.current && markdownBody) {
-      const { __html, topicLevel } = outputMarkDown(markdownBody);
-      console.log(topicLevel);
+    if (codeNode.current && props.markdown) {
+      const { __html, topics } = outputMarkDown(props.markdown);
       setContent({ __html });
+      props?.setTopics(topics);
       // Use setTimeout to push onto callback queue so it runs after the DOM is updated
-      Prism.highlightAllUnder(codeNode.current, false);
+      setTimeout(() => {
+        if (codeNode.current) {
+          Prism.highlightAllUnder(codeNode.current, false);
+        }
+      });
     }
   }, []);
 
   return (
     <React.Fragment>
       <Card bordered={false} className={styles.articlesTitle}>
-        <h2>{bodyContent?.title}</h2>
+        <h2>{props.title}</h2>
         <div className={styles.articlesTag}>
           <span>10</span>
           <span>20</span>
@@ -113,4 +90,4 @@ const ArticlesDetail: React.FC = () => {
     </React.Fragment>
   );
 };
-export default ArticlesDetail;
+export default ArticleDetail;
