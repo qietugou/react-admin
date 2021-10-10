@@ -8,6 +8,7 @@ export default defineConfig({
   hash: true,
   antd: {},
   devtool: 'source-map',
+  // ssr: {},
   dva: {
     hmr: true,
   },
@@ -18,7 +19,7 @@ export default defineConfig({
     ...defaultSettings,
   },
   dynamicImport: {
-    loading: '@ant-design/pro-layout/es/PageLoading',
+    loading: '@/loading',
   },
   targets: {
     ie: 11,

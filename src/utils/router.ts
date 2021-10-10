@@ -11,7 +11,7 @@ export const notLoginRouter: any = (route: string) => {
     return !route;
   }
   // 包含子路由
-  return !HomeRoutes.routes.find((r) => r.path === route || route.startsWith(r.path || ''));
+  return !HomeRoutes.routes.find((r) => r.path === route || (r.path && route.startsWith(r.path)));
 };
 
 export const filterNotLogin = (menuData: MenuDataItem[]): MenuDataItem[] => {

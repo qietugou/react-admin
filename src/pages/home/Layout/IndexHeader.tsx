@@ -174,4 +174,4 @@ const IndexHeader: React.FC<IndexHeaderProps> = (props) => {
     </React.Fragment>
   );
 };
-export default IndexHeader;
+export default React.memo(IndexHeader);

@@ -4,9 +4,9 @@ import type { FormInstance } from 'antd';
 
 export type UpdateFormProps = {
   updateModalVisible: boolean;
-  columns: API.TagItem;
+  columns: API.GithubTagItem;
   handleUpdateModalVisible?: (visible: boolean) => void;
-  onUpdateSubmit: (values: API.TagItem) => Promise<void>;
+  onUpdateSubmit: (values: API.GithubTagItem) => Promise<void>;
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
@@ -29,14 +29,27 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         rules={[
           {
             required: true,
-            message: 'Tag',
+            message: '请输入 Github 用户',
           },
         ]}
-        label="Tag"
+        label="Github用户"
         tooltip="最长为 24 位"
-        placeholder="请输入 Tag"
+        placeholder="请输入 Github 用户"
         width="md"
         name="name"
+      />
+      <ProFormText
+        rules={[
+          {
+            required: true,
+            message: '请输入昵称',
+          },
+        ]}
+        label="昵称"
+        tooltip="最长为 24 位"
+        placeholder="请输入昵称"
+        width="md"
+        name="alias"
       />
       <ProFormDigit
         label="排序"

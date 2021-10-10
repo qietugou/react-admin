@@ -30,6 +30,11 @@ declare namespace API {
     success: boolean;
   };
 
+  type ImageResponse = {
+    path: number;
+    url: string;
+  };
+
   type ResponseDate = {
     created_at?: string;
     updated_at?: string;

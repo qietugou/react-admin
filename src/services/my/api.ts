@@ -22,3 +22,15 @@ export async function login(options: API.LoginUserItem) {
     },
   });
 }
+
+export async function upload(file: any) {
+  const formData = new FormData();
+  if (file) {
+    formData.append('file', file);
+  }
+  return request<API.Response & { data: API.ImageResponse }>('my/upload', {
+    method: 'POST',
+    processData: false,
+    data: formData,
+  });
+}

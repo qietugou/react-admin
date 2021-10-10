@@ -32,18 +32,26 @@ export default () => {
 
   const handlerUpdateRole = async (id: number, option: API.RoleListItem, callBack: () => void) => {
     const hide = message.loading('正在修改...');
-    await updateRole(id, { ...option, status: option.status ? 0 : 1 });
-    hide();
-    message.success('角色修改成功');
-    callBack();
+    try {
+      await updateRole(id, { ...option, status: option.status ? 0 : 1 });
+      hide();
+      message.success('角色修改成功');
+      callBack();
+    } catch {
+      hide();
+    }
   };
 
   const handleAddRole = async (option: API.RoleListItem, callBack: () => void) => {
     const hide = message.loading('请稍后...');
-    await addRole({ ...option, status: 0 });
-    hide();
-    message.success('角色新增成功');
-    callBack();
+    try {
+      await addRole({ ...option, status: 0 });
+      hide();
+      message.success('角色新增成功');
+      callBack();
+    } catch {
+      hide();
+    }
   };
 
   const handleDeleteRole = async (option: API.RoleListItem, callBack: () => void) => {

@@ -90,15 +90,22 @@ export default [
     login: true,
     routes: [
       { path: '/note/tag', name: '标签管理', component: './note/tag' },
-      { path: '/note/article', name: '文章管理', component: './system/role' },
+      { path: '/note/article', name: '文章管理', component: './note/article' },
+      { path: '/note/github', name: '关注立碑', component: './note/github' },
       { component: './404', require: true },
     ],
+  },
+  {
+    path: '/settings',
+    name: '系统参数',
+    component: './settings',
+    icon: 'SettingOutlined',
+    login: true,
   },
   {
     path: '/bookmark',
     name: '书签',
     component: './bookmark',
-    icon: 'BookOutlined',
     login: true,
   },
   {

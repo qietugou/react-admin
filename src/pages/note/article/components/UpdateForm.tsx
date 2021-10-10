@@ -1,12 +1,14 @@
-import { ModalForm, ProFormText, ProFormDigit } from '@ant-design/pro-form';
+import { DrawerForm, ProFormText, ProFormSelect } from '@ant-design/pro-form';
 import React, { useRef, useEffect } from 'react';
 import type { FormInstance } from 'antd';
+import Editor from '@/components/Editor';
 
 export type UpdateFormProps = {
   updateModalVisible: boolean;
-  columns: API.TagItem;
+  columns: API.GithubTagItem | undefined;
   handleUpdateModalVisible?: (visible: boolean) => void;
-  onUpdateSubmit: (values: API.TagItem) => Promise<void>;
+  onUpdateSubmit: (values: API.GithubTagItem) => Promise<void>;
+  onAddSubmit: (values: API.GithubTagItem) => Promise<void>;
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
@@ -17,10 +19,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   }, [props.columns]); // 仅在 count 更改时更新
 
   return (
-    <ModalForm
-      title={`更新${props.columns.name} Tag`}
+    <DrawerForm
+      title={props.columns ? `更新【${props.columns?.name}】文章` : '新增文章'}
       formRef={formRef}
-      width="400px"
+      width="80%"
       visible={props.updateModalVisible}
       onVisibleChange={props.handleUpdateModalVisible}
       onFinish={props.onUpdateSubmit}
@@ -29,23 +31,28 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         rules={[
           {
             required: true,
-            message: 'Tag',
+            message: '请输入文章标题',
           },
         ]}
-        label="Tag"
+        label="文章标题"
         tooltip="最长为 24 位"
-        placeholder="请输入 Tag"
-        width="md"
+        placeholder="请输入文章标题"
         name="name"
       />
-      <ProFormDigit
-        label="排序"
-        tooltip="最长为 4 位"
-        placeholder="请输入排序"
-        width="md"
-        name="sort"
+      <ProFormSelect
+        rules={[
+          {
+            required: true,
+            message: '请选择标签',
+          },
+        ]}
+        label="标签"
+        tooltip="最长为 24 位"
+        placeholder="请输入标签"
+        name="alias"
       />
-    </ModalForm>
+      <Editor />
+    </DrawerForm>
   );
 };
 export default UpdateForm;

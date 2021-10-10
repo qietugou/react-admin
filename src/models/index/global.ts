@@ -1,10 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 type IndexGlobalState = {
-  /**
-   * 标签 tag
-   */
-  tagList: API.BookmarkTag[];
   /**
    * 选中的 tag
    */
@@ -15,7 +11,6 @@ type IndexGlobalState = {
   selectTagId: number | null;
 };
 const initGlobalState: IndexGlobalState = {
-  tagList: [],
   selectTagIndex: 0,
   selectTagId: null,
 };
@@ -29,20 +24,12 @@ export default () => {
    */
   const [globalState, setGlobalState] = useState<IndexGlobalState>(initGlobalState);
 
-  /**
-   * 处理书签
-   * @param data
-   */
-  const handleTagItem = (data: API.BookmarkTag[]) => {
-    setGlobalState((s) => ({ ...s, tagList: data }));
-  };
-  const handleSelectTagId = (id: number, index: number) => {
+  const handleSelectTagId = useCallback((id: number, index: number) => {
     setGlobalState((s) => ({ ...s, selectTagId: id, selectTagIndex: index }));
-  };
+  }, []);
 
   return {
     globalState,
-    handleTagItem,
     handleSelectTagId,
   };
 };

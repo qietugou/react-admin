@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 import styles from './index.less';
 import ArticleTitle from './components/ArticleTitle';
 import ArticleContent from './components/ArticleContent';
+import { KeepAlive } from 'umi';
 
 const Index: React.FC = () => {
   return (
@@ -16,4 +17,9 @@ const Index: React.FC = () => {
     </Col>
   );
 };
-export default Index;
+
+export default () => (
+  <KeepAlive name="/article" saveScrollPosition="screen">
+    <Index />
+  </KeepAlive>
+);

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Index: React.FC = () => {
+  console.log('weclocome');
   return (
     <React.Fragment>
       <div>11111111</div>
@@ -8,4 +9,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

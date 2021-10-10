@@ -1,25 +1,34 @@
 import React, { useRef, useState } from 'react';
 import { Menu } from 'antd';
-import { CopyrightOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
 import styles from './menu.less';
 import type { MenuDataItem } from '@ant-design/pro-layout';
 import { useModel } from '@@/plugin-model/useModel';
 import _ from 'lodash';
+import Setting from './components/setting';
 
 export type MenuProps = {
   routes: MenuDataItem[];
   route: string;
+  settings: API.SettingsItem[];
+  tags: API.BookmarkTag[];
 };
+
 const IndexMenu: React.FC<MenuProps> = (props) => {
-  const { globalState, handleSelectTagId } = useModel('index.global');
+  const { handleSelectTagId } = useModel('index.global', (ret) => ({
+    handleSelectTagId: ret.handleSelectTagId,
+  }));
 
   const ref = useRef<HTMLDivElement>(null);
-  const [selectTagIndex, setSelectTagIndex] = useState<number>(globalState.selectTagIndex);
+  const [selectTagIndex, setSelectTagIndex] = useState<number>(0);
 
   const createIconMenuNode = (type: string): React.ReactNode => (
     <React.Fragment>{type}</React.Fragment>
   );
+
+  const getSettingByKey = (key: string): API.SettingsItem => {
+    return props.settings.find((s) => s.field_key === key) as API.SettingsItem;
+  };
 
   const throttle = _.throttle((index: number, id: number) => {
     setSelectTagIndex(index);
@@ -83,7 +92,7 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
               <Link to={route.path || ''}>{route.name}</Link>
               {props.route === '/q/bookmark' && route.path === '/q/bookmark' ? (
                 <div ref={ref} className={`${styles.itemSubs}`}>
-                  {renderChildScroll(globalState.tagList, selectTagIndex)}
+                  {renderChildScroll(props.tags, selectTagIndex)}
                 </div>
               ) : (
                 ''
@@ -93,22 +102,15 @@ const IndexMenu: React.FC<MenuProps> = (props) => {
         })}
       </Menu>
       <div className={styles.menuFooter}>
-        <a className={styles.host} href="/">
-          qietugou.com
-        </a>
-
-        <a className={styles.copyright} href="https://beian.miit.gov.cn/">
-          <CopyrightOutlined /> 2021 粤ICP备17166475号
-        </a>
-        <a
-          className={styles.thanks}
-          href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"
-        >
-          <img src="https://www.guaosi.com/assets/img/upyun.png" alt="" />
-          <span>赞助</span>
-        </a>
+        <Setting hasLink={true} settings={getSettingByKey('HOST')} />
+        <Setting hasLink={true} settings={getSettingByKey('ICP-ADDRESS')} />
+        {props.settings
+          .filter((r) => r.type === 1)
+          .map((item) => {
+            return <Setting key={item.id} hasLink={true} type="thanks" settings={item} />;
+          })}
       </div>
     </React.Fragment>
   );
 };
-export default IndexMenu;
+export default React.memo(IndexMenu);

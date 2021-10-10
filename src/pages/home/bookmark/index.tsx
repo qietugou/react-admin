@@ -4,7 +4,7 @@ import styles from './style.less';
 import { Avatar, Card, Col, Row, Skeleton, Tooltip } from 'antd';
 import { animateScroll as scroll } from 'react-scroll';
 import { EyeFilled } from '@ant-design/icons';
-import { useRequest, useModel } from 'umi';
+import { useRequest, useModel, KeepAlive } from 'umi';
 
 type ElementItem = {
   id: number;
@@ -12,8 +12,7 @@ type ElementItem = {
 };
 
 const Index: React.FC = () => {
-  const { handleTagItem, globalState } = useModel('index.global');
-
+  const { globalState } = useModel('index.global');
   const [elementItem, setElementItem] = useState<ElementItem[]>([]);
 
   const { data, loading } = useRequest<API.BookmarkIndexList>(() => {
@@ -24,9 +23,6 @@ const Index: React.FC = () => {
   const marginHeight = 24;
 
   useEffect(() => {
-    if (!loading) {
-      handleTagItem(data?.tags || []);
-    }
     const collection: NodeListOf<HTMLElement> = document.querySelectorAll(
       '#book-mark .book-mark-tag-title',
     );
@@ -112,4 +108,10 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+const IndexMemo = React.memo(Index);
+
+export default () => (
+  <KeepAlive name="/bookmark" saveScrollPosition="screen">
+    <IndexMemo />
+  </KeepAlive>
+);

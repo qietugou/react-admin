@@ -5,6 +5,7 @@ import { RightOutlined, StarOutlined, ForkOutlined } from '@ant-design/icons';
 import { getSubGitHubUser, getGitHubUserStarList } from '@/services/star/api';
 import { useRequest } from '@@/plugin-request/request';
 import moment from 'moment';
+import { KeepAlive } from 'umi';
 
 const Index: React.FC = () => {
   const [selectUser, setSelectUser] = useState<string>('qietugou');
@@ -37,9 +38,9 @@ const Index: React.FC = () => {
           <Card className={styles.subSidebar} loading={loading}>
             <div className={styles.subSidebarTitle}>关注</div>
             <div className={styles.subSidebarList}>
-              {list.map((item) => {
+              {list.map((item, index) => {
                 return (
-                  <Tooltip placement="topLeft" title={item.alias}>
+                  <Tooltip key={`${item.id}${index}`} placement="topLeft" title={item.alias}>
                     <div
                       key={item.id}
                       onClick={() => {
@@ -100,4 +101,9 @@ const Index: React.FC = () => {
     </div>
   );
 };
-export default Index;
+
+export default () => (
+  <KeepAlive name="/star" saveScrollPosition="screen">
+    <Index />
+  </KeepAlive>
+);
