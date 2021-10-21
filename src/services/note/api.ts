@@ -1,7 +1,7 @@
 import { request } from 'umi';
 
 export async function tags(
-  params: {
+  params?: {
     // query
     /** 当前的页码 */
     current?: number;
@@ -10,7 +10,7 @@ export async function tags(
   },
   options?: Record<string, any>,
 ) {
-  const res: any = await request('tag', {
+  const res: any = await request<API.TagItemList>('tag', {
     method: 'GET',
     params: {
       ...params,
@@ -127,4 +127,37 @@ export async function article(
     // 不传会使用 data 的长度，如果是分页一定要传
     total: res?.data?.total,
   };
+}
+
+export async function addArticle(options?: API.ArticleStoreItem) {
+  return request<API.UserList>('article', {
+    method: 'POST',
+    data: {
+      ...(options || {}),
+    },
+  });
+}
+
+export async function updateArticle(id: number, options?: API.ArticleStoreItem) {
+  return request<API.UserList>(`article/${id}`, {
+    method: 'PUT',
+    data: {
+      ...(options || {}),
+    },
+  });
+}
+
+export async function deleteArticle(id: number) {
+  return request<API.UserList>(`article/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function changStatus(id: number, status: number) {
+  return request<API.UserList>(`article/${id}/status`, {
+    method: 'PUT',
+    data: {
+      status,
+    },
+  });
 }

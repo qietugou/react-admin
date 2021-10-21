@@ -14,14 +14,24 @@ declare namespace API {
   };
 
   type ArticleItem = ResponseDate & {
-    name?: string;
+    title?: string;
     id?: number;
     slug?: string;
     content?: string;
+    draft_content?: string;
     preview?: string;
     views_count?: number;
     sort?: number;
     is_show?: number;
+    is_draft?: number;
+    tags: API.TagItem[];
+  };
+
+  type ArticleStoreItem = {
+    tags: number[];
+    add_tags: string[];
+    draft_content: string;
+    name: string;
   };
 
   type TagItemList = Response & {

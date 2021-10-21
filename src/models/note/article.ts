@@ -1,11 +1,11 @@
 import { message, Modal } from 'antd';
-import { addGithubTag, updateGithubTag, deleteGithubTag } from '@/services/note/api';
+import { addArticle, updateArticle, deleteArticle, changStatus } from '@/services/note/api';
 
 export default () => {
-  const handleAdd = async (fields: API.ArticleItem, callBack: () => void) => {
+  const handleAdd = async (fields: API.ArticleStoreItem, callBack: () => void) => {
     const hide = message.loading('正在添加');
     try {
-      await addGithubTag({ ...fields });
+      await addArticle({ ...fields });
       hide();
       message.success('Added successfully');
       callBack();
@@ -17,10 +17,10 @@ export default () => {
     }
   };
 
-  const handleUpdate = async (id: number, fields: API.GithubTagItem, callBack: () => void) => {
+  const handleUpdate = async (id: number, fields: API.ArticleStoreItem, callBack: () => void) => {
     const hide = message.loading('正在更新');
     try {
-      await updateGithubTag(id, { ...fields });
+      await updateArticle(id, { ...fields });
       hide();
       message.success('修改成功');
       callBack();
@@ -32,13 +32,13 @@ export default () => {
     }
   };
 
-  const handleDelete = async (row: API.GithubTagItem, callBack: () => void) => {
+  const handleDelete = async (row: API.ArticleItem, callBack: () => void) => {
     Modal.confirm({
-      title: `确认要删除权限【${row.name}】吗?`,
+      title: `确认要删除权限【${row.title}】吗?`,
       content: '数据无价，请谨慎操作。',
       async onOk() {
         if (row.id != null) {
-          await deleteGithubTag(row.id);
+          await deleteArticle(row.id);
           message.success('操作成功');
           callBack();
         }
@@ -46,5 +46,25 @@ export default () => {
       onCancel() {},
     });
   };
-  return { handleAdd, handleUpdate, handleDelete };
+
+  const handlePush = async (
+    remark: string,
+    title: string,
+    id: number,
+    status: number,
+    callBack: () => void,
+  ) => {
+    Modal.confirm({
+      title: `确认要${remark}【${title}】吗?`,
+      content: '数据无价，请谨慎操作！',
+      async onOk() {
+        await changStatus(id, status);
+        message.success('操作成功');
+        callBack();
+      },
+      onCancel() {},
+    });
+  };
+
+  return { handleAdd, handleUpdate, handleDelete, handlePush };
 };

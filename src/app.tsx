@@ -10,6 +10,9 @@ import routeMenu, { filterNotLogin, notLoginRouter, loginPath } from './utils/ro
 import React from 'react';
 import { history } from 'umi';
 import { getToken } from '@/utils/token';
+import type { ResponseError } from 'umi-request';
+import { message } from 'antd';
+
 // const isDev = process.env.NODE_ENV === 'development';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -112,26 +115,40 @@ const apiRequestInterceptor = (url: string, options: RequestOptionsInit) => {
   };
 };
 
-// const apiResponseInterceptor = (response: Response, options: RequestOptionsInit) => {
-//   return response;
-// };
-
 /**
  * 异常处理程序
  */
-// const errorHandler = (error: ResponseError) => {
-//   const { response } = error;
-//   if (!response) {
-//     notification.error({
-//       description: '您的网络发生异常，无法连接服务器',
-//       message: '网络异常',
-//     });
-//   }
-//   throw error;
-// };
+const codeMessage = {
+  500: '服务器发生错误，请检查服务器。',
+  502: '网关错误。',
+  503: '服务不可用，服务器暂时过载或维护。',
+  504: '网关超时。',
+};
+
+const errorHandler = (error: ResponseError) => {
+  if (error?.request?.options?.skipErrorHandler) {
+    throw error;
+  }
+  const { response, data } = error;
+  if (response && response.status && response.status >= 500) {
+    const errorText = codeMessage[response.status] || response.statusText;
+    message.error(errorText).then();
+    throw error;
+  }
+  // token续期
+  if (response && response.status && response.status === 422) {
+    return;
+  }
+  if (response) {
+    message.error(data?.msg || '服务器异常！').then();
+  } else {
+    message.error(error.message || 'Request error, please retry.').then();
+  }
+  throw error;
+};
 
 export const request: RequestConfig = {
-  // errorHandler,
+  errorHandler,
   errorConfig: {
     adaptor: (resData: any) => {
       return {

@@ -1,6 +1,6 @@
 import { Space } from 'antd';
 import React from 'react';
-import { Link, useModel } from 'umi';
+import { useModel } from 'umi';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
 
@@ -20,17 +20,6 @@ const GlobalHeaderRight: React.FC = () => {
 
   return (
     <Space className={className}>
-      <Link
-        to="/"
-        innerRef={() => {
-          return null;
-        }}
-      >
-        <div>
-          <i className={`iconfont qietugou-ziyuan15`} />
-          首页
-        </div>
-      </Link>
       <Avatar />
     </Space>
   );

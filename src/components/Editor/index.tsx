@@ -5,8 +5,12 @@ import Prism from 'prismjs';
 import 'easymde/dist/easymde.min.css';
 import type { Options } from 'easymde';
 import styles from './index.less';
+import { upload } from '@/services/my/api';
 
-type EditorProps = {};
+type EditorProps = {
+  value?: string;
+  onChange?: (value: string) => void;
+};
 
 const getDefaultMarkedOptions = () => {
   const renderer = new marked.Renderer();
@@ -38,15 +42,15 @@ const outputMarkDown = (content: string): string => {
 };
 
 const Editor: React.FC<EditorProps> = (props) => {
-  console.log(props);
-  const [value, setValue] = useState<string>(`Blur away to see initial event behavior`);
-
   const [options] = useState<Options>({
     maxHeight: '500px',
-    // renderingConfig: {
-    //   codeSyntaxHighlighting: true // 开启代码高亮
-    // },
     previewRender: (markdownPlaintext: string) => outputMarkDown(markdownPlaintext),
+    uploadImage: true,
+    imageMaxSize: 1024 * 1024 * 10,
+    imageUploadFunction: async (file, onSuccess) => {
+      const result = await upload(file);
+      onSuccess(`${result.data.url}`);
+    },
     toolbar: [
       // 所有工具栏
       'bold', // 黑体
@@ -80,16 +84,20 @@ const Editor: React.FC<EditorProps> = (props) => {
     ],
   });
 
-  const onChange = useCallback((val: string) => {
-    console.log(val);
-    setValue(val);
-  }, []);
+  const onChange = useCallback(
+    (val: string) => {
+      if (props.onChange) {
+        props.onChange(val);
+      }
+    },
+    [props],
+  );
 
   return (
     <SimpleMdeReact
       className={styles.markBody}
       options={options}
-      value={value}
+      value={props.value}
       onChange={onChange}
     />
   );
