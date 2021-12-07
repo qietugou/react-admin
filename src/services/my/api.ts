@@ -34,3 +34,9 @@ export async function upload(file: any) {
     data: formData,
   });
 }
+
+export async function system() {
+  return request<API.SystemInfoResponse>('my/system', {
+    method: 'GET',
+  });
+}

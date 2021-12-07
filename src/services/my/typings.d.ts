@@ -28,4 +28,19 @@ declare namespace API {
     ticket?: string;
     randstr?: string;
   };
+
+  type SystemInfo = {
+    server_os: string;
+    go_version: string;
+    gin_version: string;
+    timezone: string;
+    date_time: string;
+    user_ip: string;
+    user_os: string;
+    user_browser: string;
+  };
+
+  type SystemInfoResponse = Response & {
+    data: SystemInfo;
+  };
 }

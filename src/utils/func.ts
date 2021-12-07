@@ -113,3 +113,21 @@ export function renderMarkedLink(href: string, title: string, text: string) {
 
   return out;
 }
+
+/**
+ * 根据url 返回非域名 部分
+ * @param url
+ */
+export function getUrlRelativePath(url: string) {
+  const arrUrl = url.split('//');
+  if (arrUrl.length <= 1) {
+    return url;
+  }
+  const start = arrUrl[1].indexOf('/');
+  const relUrl = arrUrl[1].substring(start); // stop省略，截取从start开始到结尾的所有字符
+
+  if (relUrl.indexOf('?') !== -1) {
+    return relUrl.split('?')[0];
+  }
+  return relUrl;
+}

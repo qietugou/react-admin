@@ -5,6 +5,8 @@ import UploadImage from '@/components/UploadImage';
 import { useModel } from 'umi';
 import type { UploadFile } from 'antd/es/upload/interface';
 import type { StatusTypeItem } from '../../settings';
+import { Form } from 'antd';
+import { getUrlRelativePath } from '@/utils/func';
 
 export type UpdateFormProps = {
   updateModalVisible: boolean;
@@ -22,21 +24,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const { INPUT_TYPE_TEXT, INPUT_TYPE_IMAGE, INPUT_TYPE_NUMBER } = useModel('settings.setting');
 
   useEffect(() => {
-    const data: UpdateSettings = { ...props.columns, file: [] };
-    if (props.columns.input_type === INPUT_TYPE_IMAGE) {
-      if (props.columns.field_value) {
-        data.file = [
-          {
-            uid: `${props.columns.id}`,
-            name: props.columns.field_title || '',
-            status: 'done',
-            url: props.columns.field_value,
-            thumbUrl: props.columns.field_value,
-          },
-        ];
-      }
-    }
-    formRef.current?.setFieldsValue({ ...data });
+    formRef.current?.setFieldsValue({ ...props.columns });
   }, [props.columns]); // 仅在 count 更改时更新
 
   return (
@@ -47,13 +35,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       visible={props.updateModalVisible}
       onVisibleChange={props.handleUpdateModalVisible}
       onFinish={async (values: UpdateSettings) => {
-        if (props.columns.input_type === INPUT_TYPE_IMAGE) {
-          return props.onUpdateSubmit({
-            ...values,
-            field_value: values.file[0] ? values.file[0].response : values.field_value,
-          });
-        }
-        return props.onUpdateSubmit({ ...values });
+        return props.onUpdateSubmit({
+          ...values,
+          field_value: getUrlRelativePath(values.field_value as string),
+        });
       }}
     >
       <ProFormText
@@ -99,7 +84,22 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       ) : (
         ''
       )}
-      {props?.columns.input_type === INPUT_TYPE_IMAGE ? <UploadImage name="field_value" /> : ''}
+      {props?.columns.input_type === INPUT_TYPE_IMAGE ? (
+        <Form.Item
+          rules={[
+            {
+              required: true,
+              message: '请上传图片',
+            },
+          ]}
+          name="field_value"
+          label="上传图片"
+        >
+          <UploadImage />
+        </Form.Item>
+      ) : (
+        ''
+      )}
       {props?.columns.input_type === INPUT_TYPE_NUMBER ? (
         <ProFormDigit
           rules={[

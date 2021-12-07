@@ -4,6 +4,7 @@ import { Form, Modal } from 'antd';
 import type { FormInstance } from 'antd';
 import Editor from '@/components/Editor';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import UploadImage from '@/components/UploadImage';
 
 export type UpdateFormProps = {
   updateModalVisible: boolean;
@@ -22,10 +23,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       formRef.current?.setFieldsValue({
         name: props.columns.title,
         content: props.columns.draft_content,
+        preview: props.columns.preview,
         tags: props.columns?.tags?.map((t) => t.id),
       });
     } else {
-      formRef.current?.setFieldsValue({ name: '', content: '', tags: [] });
+      formRef.current?.setFieldsValue({ name: '', content: '', tags: [], preview: '' });
     }
   }, [props.columns]);
 
@@ -106,6 +108,18 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         name="tags"
         options={props.tags}
       />
+      <Form.Item
+        rules={[
+          {
+            required: true,
+            message: '请上传图片',
+          },
+        ]}
+        name="preview"
+        label="上传图片"
+      >
+        <UploadImage />
+      </Form.Item>
       <Form.Item
         rules={[
           {

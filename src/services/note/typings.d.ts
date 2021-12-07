@@ -32,13 +32,14 @@ declare namespace API {
     add_tags: string[];
     draft_content: string;
     name: string;
+    preview: string;
   };
 
   type TagItemList = Response & {
-    data?: TagItem;
+    data?: TagItem[];
   };
   type ArticleItemList = Response & {
-    data?: ArticleItem;
+    data?: ArticleItem[];
   };
 
   type GithubItemList = Response & {

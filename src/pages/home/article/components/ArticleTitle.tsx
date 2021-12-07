@@ -5,12 +5,10 @@ import styles from './index.less';
 const { CheckableTag } = Tag;
 
 export interface NoteHeaderTitleProps {
-  data: [];
+  data: API.TagItem[];
 }
 
-const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
-
-const ArticleTitle: React.FC<NoteHeaderTitleProps> = () => {
+const ArticleTitle: React.FC<NoteHeaderTitleProps> = (props) => {
   const [selectTags, setSelectTags] = useState<string[]>([]);
 
   const handleChange = (tag: string, checked: boolean) => {
@@ -23,14 +21,14 @@ const ArticleTitle: React.FC<NoteHeaderTitleProps> = () => {
         <div className={styles.tagBody}>
           <span className={styles.title}>所属标签:</span>
           <div className={styles.tags}>
-            {tagsData.map((tag) => (
+            {props.data.map((tag) => (
               <CheckableTag
-                key={tag}
-                onChange={(checked) => handleChange(tag, checked)}
+                key={tag.id}
+                onChange={(checked) => handleChange(`${tag.id}`, checked)}
                 className={styles.tag}
-                checked={selectTags.indexOf(tag) > -1}
+                checked={selectTags.indexOf(String(tag.id)) > -1}
               >
-                {tag}
+                {tag.name}
               </CheckableTag>
             ))}
           </div>

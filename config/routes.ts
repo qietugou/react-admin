@@ -10,7 +10,7 @@ export const HomeRoutes = {
   routes: [
     {
       path: '/q/welcome',
-      name: '导航',
+      name: '欢迎',
       component: './home/welcome',
       icon: 'thunderbolt',
       require: true,
@@ -30,13 +30,13 @@ export const HomeRoutes = {
       hideInMenu: true,
       require: true,
     },
-    {
-      path: '/q/yuque',
-      name: '语雀',
-      component: './home/bookmark',
-      icon: 'yuque',
-      require: true,
-    },
+    // {
+    //   path: '/q/yuque',
+    //   name: '语雀',
+    //   component: './home/bookmark',
+    //   icon: 'yuque',
+    //   require: true,
+    // },
     {
       path: '/q/star',
       name: 'star',
